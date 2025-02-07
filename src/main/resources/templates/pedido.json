@@ -1,0 +1,10 @@
+{
+  "titulo": "Acompanhamento de pedidos",
+  "descricao": "Acompanhe por aqui o andamento do seu pedido",
+  "pedidos": [
+    {
+      "codigo": "Pedido ${id}",
+      "status": "Seu pedido está ${status.label}"
+    }
+  ]
+}
