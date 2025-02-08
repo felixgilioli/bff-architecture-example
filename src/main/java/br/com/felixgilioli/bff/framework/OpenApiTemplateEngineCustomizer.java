@@ -11,6 +11,13 @@ import org.springdoc.core.customizers.OperationCustomizer;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
+
 @Component
 public class OpenApiTemplateEngineCustomizer implements OperationCustomizer {
 
@@ -22,29 +29,52 @@ public class OpenApiTemplateEngineCustomizer implements OperationCustomizer {
 
     @Override
     public Operation customize(Operation operation, HandlerMethod handlerMethod) {
-        ApiResponse apiResponse = operation.getResponses().get("200");
-        Documentation documentation = handlerMethod.getMethodAnnotation(Documentation.class);
+        Responses responses = handlerMethod.getMethodAnnotation(Responses.class);
 
-        if (apiResponse == null || documentation == null) {
+        if (responses == null || responses.value().length == 0) {
             return operation;
         }
 
-        try {
-            var documentationData = documentation.data().getDeclaredConstructor().newInstance();
+        Map<Integer, List<ResponseExample>> responsesByStatus = Arrays.stream(responses.value())
+                .collect(Collectors.groupingBy(ResponseExample::status));
 
-            var jsonString = templateEngine.getTemplate(documentation.template(), documentationData.getData());
+        for (Integer status : responsesByStatus.keySet()) {
+            var httpStatus = String.valueOf(status);
+            ApiResponse apiResponse = operation.getResponses().get(httpStatus);
 
-            apiResponse.content(new Content().addMediaType("application/json", new MediaType()
-                    .addExamples(
-                            "Exemplo de resposta",
-                            new Example().value(toJson(jsonString))
-                    )));
+            if (apiResponse == null) {
+                apiResponse = new ApiResponse();
+                operation.getResponses().addApiResponse(httpStatus, apiResponse);
+            }
 
-        } catch (Exception e) {
-            return operation;
+            var mediaType = new MediaType();
+            int exampleNumber = 1;
+
+            for (ResponseExample responseExample : responsesByStatus.get(status)) {
+                var jsonString = templateEngine.getTemplate(responseExample.template(), getDocumentationData(responseExample).getData());
+
+                mediaType.addExamples(
+                        isNotBlank(responseExample.description())
+                                ? responseExample.description()
+                                : "Example " + exampleNumber++,
+                        new Example().value(toJson(jsonString))
+                );
+
+            }
+
+
+            apiResponse.content(new Content().addMediaType("application/json", mediaType));
         }
 
         return operation;
+    }
+
+    private DocumentationData getDocumentationData(ResponseExample responseExample) {
+        try {
+            return responseExample.data().getDeclaredConstructor().newInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public Object toJson(String jsonString) {

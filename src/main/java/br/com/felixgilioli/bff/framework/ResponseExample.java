@@ -7,10 +7,14 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Documentation {
+public @interface ResponseExample {
+
+    String description() default "";
 
     String template();
 
     Class<? extends DocumentationData> data();
+
+    int status();
 
 }

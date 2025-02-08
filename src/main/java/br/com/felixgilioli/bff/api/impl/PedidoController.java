@@ -30,4 +30,5 @@ public class PedidoController implements PedidoApi {
 
         return ResponseEntity.ok(templateEngine.getTemplate(TEMPLATE_NAME, pedido.get()));
     }
+
 }
