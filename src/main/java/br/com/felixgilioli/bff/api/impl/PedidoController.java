@@ -25,7 +25,7 @@ public class PedidoController implements PedidoApi {
         Optional<Pedido> pedido = pedidoService.findById(pedidoId);
 
         if (pedido.isEmpty()) {
-            ResponseEntity.notFound().build();
+            return ResponseEntity.notFound().build();
         }
 
         return ResponseEntity.ok(templateEngine.getTemplate(TEMPLATE_NAME, pedido.get()));
