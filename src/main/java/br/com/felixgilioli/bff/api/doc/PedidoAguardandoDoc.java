@@ -4,7 +4,7 @@ import br.com.felixgilioli.bff.framework.DocumentationData;
 import br.com.felixgilioli.bff.model.Pedido;
 import br.com.felixgilioli.bff.model.PedidoStatus;
 
-public class PedidoDoc implements DocumentationData {
+public class PedidoAguardandoDoc implements DocumentationData {
 
     @Override
     public Object getData() {

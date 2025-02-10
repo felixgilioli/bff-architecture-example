@@ -4,6 +4,7 @@ import br.com.felixgilioli.bff.model.Pedido;
 import br.com.felixgilioli.bff.model.PedidoStatus;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -30,5 +31,9 @@ public class PedidoRepository {
 
     public Optional<Pedido> findById(Long id) {
         return Optional.ofNullable(PEDIDOS_MOCK.get(id));
+    }
+
+    public List<Pedido> findAll() {
+        return PEDIDOS_MOCK.values().stream().toList();
     }
 }

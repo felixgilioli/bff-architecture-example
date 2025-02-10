@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: bff-architecture-example
+
+documentation:
+  info:
+    title: BFF com template enginee
+    description: Exemplo de BFF usando template enginee e documentação com openapi
+    version: 0.1.0

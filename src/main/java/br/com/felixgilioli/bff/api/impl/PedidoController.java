@@ -5,8 +5,10 @@ import br.com.felixgilioli.bff.framework.TemplateEngine;
 import br.com.felixgilioli.bff.model.Pedido;
 import br.com.felixgilioli.bff.service.PedidoService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -31,4 +33,14 @@ public class PedidoController implements PedidoApi {
         return ResponseEntity.ok(templateEngine.getTemplate(TEMPLATE_NAME, pedido.get()));
     }
 
+    @Override
+    public ResponseEntity<List<Pedido>> getPedidos() {
+        List<Pedido> pedidos = pedidoService.findAll();
+
+        if (CollectionUtils.isEmpty(pedidos)) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(pedidos);
+    }
 }
