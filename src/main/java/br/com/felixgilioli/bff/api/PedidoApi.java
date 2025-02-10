@@ -17,10 +17,7 @@ public interface PedidoApi {
     @GetMapping("/{pedidoId}")
     @Responses({
             @ResponseExample(status = 202, template = TEMPLATE_NAME, data = PedidoDoc.class, description = "das"),
-            @ResponseExample(status = 202, template = TEMPLATE_NAME, data = PedidoCanceladoDoc.class),
-            @ResponseExample(status = 200, template = TEMPLATE_NAME, data = PedidoCanceladoDoc.class),
-            @ResponseExample(status = 200, template = TEMPLATE_NAME, data = PedidoCanceladoDoc.class),
-            @ResponseExample(status = 200, template = TEMPLATE_NAME, data = PedidoCanceladoDoc.class, description = "aaa")
+            @ResponseExample(status = 202, template = TEMPLATE_NAME, data = PedidoCanceladoDoc.class)
     })
     ResponseEntity<Object> getPedidoScreen(@PathVariable Long pedidoId);
 

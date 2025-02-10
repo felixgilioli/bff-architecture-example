@@ -38,6 +38,10 @@ public class OpenApiTemplateEngineCustomizer implements OperationCustomizer {
         Map<Integer, List<ResponseExample>> responsesByStatus = Arrays.stream(responses.value())
                 .collect(Collectors.groupingBy(ResponseExample::status));
 
+        if (!responsesByStatus.containsKey(200)) {
+            operation.getResponses().remove("200");
+        }
+
         for (Integer status : responsesByStatus.keySet()) {
             var httpStatus = String.valueOf(status);
             ApiResponse apiResponse = operation.getResponses().get(httpStatus);
