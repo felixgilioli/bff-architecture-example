@@ -1,10 +1,10 @@
 package br.com.felixgilioli.bff;
 
-import br.com.felixgilioli.bff.config.EnableTemplateEngine;
+import br.com.felixgilioli.bff.config.EnableBffEngine;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@EnableTemplateEngine
+@EnableBffEngine
 @SpringBootApplication
 public class BffArchitectureExampleApplication {
 
