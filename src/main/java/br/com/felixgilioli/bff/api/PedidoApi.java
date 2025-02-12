@@ -1,9 +1,9 @@
 package br.com.felixgilioli.bff.api;
 
-import br.com.felixgilioli.bff.api.doc.PedidoCanceladoDoc;
 import br.com.felixgilioli.bff.api.doc.PedidoAguardandoDoc;
-import br.com.felixgilioli.bff.framework.ResponseExample;
-import br.com.felixgilioli.bff.framework.Responses;
+import br.com.felixgilioli.bff.api.doc.PedidoCanceladoDoc;
+import br.com.felixgilioli.bff.doc.ResponseExample;
+import br.com.felixgilioli.bff.doc.Responses;
 import br.com.felixgilioli.bff.model.Pedido;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;

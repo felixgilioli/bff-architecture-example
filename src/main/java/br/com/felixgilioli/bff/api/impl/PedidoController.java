@@ -1,9 +1,9 @@
 package br.com.felixgilioli.bff.api.impl;
 
 import br.com.felixgilioli.bff.api.PedidoApi;
-import br.com.felixgilioli.bff.framework.TemplateEngine;
 import br.com.felixgilioli.bff.model.Pedido;
 import br.com.felixgilioli.bff.service.PedidoService;
+import br.com.felixgilioli.bff.template.TemplateEngine;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RestController;
